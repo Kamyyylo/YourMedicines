@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import yourmedicines.processor.domain.medicineleaflet.MedicineLeaflet;
-import yourmedicines.processor.services.medicineleaflet.MedicineLeafletService;
+import yourmedicines.processor.domain.medicineleaflet.Paragraph;
+import yourmedicines.processor.exceptions.medicineleaflet.NoParagraphFoundException;
+import yourmedicines.processor.services.medicineleaflet.MedicineHeadService;
+import yourmedicines.processor.services.medicineleaflet.ParagraphService;
 import yourmedicines.processor.web.MapValidationErrorService;
 
 import javax.validation.Valid;
@@ -19,20 +22,30 @@ import javax.validation.Valid;
 public class MedicineLeafletController {
 
     @Autowired
-    private MedicineLeafletService medicineLeafletService;
+    private MedicineHeadService medicineHeadService;
 
     @Autowired
     private MapValidationErrorService mapValidationErrorService;
 
+    @Autowired
+    private ParagraphService paragraphService;
 
     @PostMapping("")
     public ResponseEntity<?> createNewLeaflet(@Valid @RequestBody MedicineLeaflet medicineLeaflet, BindingResult result) {
 
         ResponseEntity<?> errorMap = mapValidationErrorService.mapValidationService(result);
-        if(errorMap != null) {
+        if (errorMap != null) {
             return errorMap;
         }
-        medicineLeafletService.addMedicineLeaflet(medicineLeaflet);
+        if (medicineLeaflet.getParagraphs().size() != 0) {
+            String medicineId = medicineHeadService.buildMedicineId(medicineLeaflet.getMedicineHead());
+            medicineHeadService.addMedicineHead(medicineLeaflet.getMedicineHead(), medicineId);
+            paragraphService.addParagraph(medicineLeaflet.getParagraphs(), medicineId);
+
+        } else {
+            throw new NoParagraphFoundException("No Paragraphs found for leaflet!");
+        }
+
         return new ResponseEntity<>(medicineLeaflet, HttpStatus.CREATED);
     }
 }

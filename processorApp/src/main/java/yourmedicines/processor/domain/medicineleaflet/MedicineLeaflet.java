@@ -1,54 +1,25 @@
 package yourmedicines.processor.domain.medicineleaflet;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import java.util.List;
 
-import javax.persistence.*;
-import java.sql.Timestamp;
-
-@Entity
 public class MedicineLeaflet {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String medicineName;
-    @Column(name = "CreatedDate", updatable=false)
-    @CreationTimestamp
-    private Timestamp createdDate;
-    @Column(name = "ModifiedDate")
-    @UpdateTimestamp
-    private Timestamp modifiedDate;
+    private MedicineHead medicineHead;
+    private List<Paragraph> paragraphs;
 
-    public Long getId() {
-        return id;
+    public MedicineHead getMedicineHead() {
+        return medicineHead;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setMedicineHead(MedicineHead medicineHead) {
+        this.medicineHead = medicineHead;
     }
 
-    public String getMedicineName() {
-        return medicineName;
+    public List<Paragraph> getParagraphs() {
+        return paragraphs;
     }
 
-    public void setMedicineName(String medicineName) {
-        this.medicineName = medicineName;
-    }
-
-    public Timestamp getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Timestamp createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Timestamp getModifiedDate() {
-        return modifiedDate;
-    }
-
-    public void setModifiedDate(Timestamp modifiedDate) {
-        this.modifiedDate = modifiedDate;
+    public void setParagraphs(List<Paragraph> paragraphs) {
+        this.paragraphs = paragraphs;
     }
 }
