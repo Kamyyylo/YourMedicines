@@ -7,6 +7,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
+/*
+* This table keep crucial informations of the medicine
+* */
 @Entity
 @Table(name = "MEDICINE_HEAD")
 public class MedicineHead {
@@ -15,13 +18,13 @@ public class MedicineHead {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
-    @NotNull
+    @NotNull(message = "Uniqe medicine id cannot be null")
     private String medicineId;
     @Column
-    @NotNull
+    @NotNull(message = "Medicine name cannot be null")
     private String medicineName;
     @Column
-    @NotNull
+    @NotNull(message = "Medicine type cannot be null")
     private MedicineTypes medicineType;
     @Column(name = "CreatedDate", updatable = false)
     @CreationTimestamp

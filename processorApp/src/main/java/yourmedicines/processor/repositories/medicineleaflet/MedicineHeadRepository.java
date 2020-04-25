@@ -11,4 +11,6 @@ public interface MedicineHeadRepository extends CrudRepository<MedicineHead, Lon
 
     MedicineHead getByMedicineId(String medicineName);
 
+    MedicineHead findByMedicineId(String medicineId);
+
 }
