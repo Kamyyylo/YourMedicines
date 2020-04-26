@@ -13,4 +13,6 @@ public interface ParagraphRepository extends CrudRepository<Paragraph, Long> {
     Iterable<Paragraph> findAllById(Iterable<Long> iterable);
 
     List<Paragraph> findByMedicineId(String medicineId);
+
+    Paragraph findById(long id);
 }

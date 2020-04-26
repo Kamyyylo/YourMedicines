@@ -5,9 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import yourmedicines.processor.domain.medicineleaflet.MedicineHead;
 import yourmedicines.processor.domain.medicineleaflet.MedicineLeaflet;
-import yourmedicines.processor.domain.medicineleaflet.Paragraph;
-import yourmedicines.processor.exceptions.medicineleaflet.NoParagraphFoundException;
 import yourmedicines.processor.services.medicineleaflet.MedicineHeadService;
 import yourmedicines.processor.services.medicineleaflet.MedicineTakingTargetService;
 import yourmedicines.processor.services.medicineleaflet.ParagraphService;
@@ -45,6 +44,7 @@ public class MedicineLeafletController {
 
         return new ResponseEntity<>(medicineLeaflet, HttpStatus.CREATED);
     }
+
 
     @DeleteMapping("/{medicineId}")
     public ResponseEntity<?> deleteLeaflet(@PathVariable String medicineId) {

@@ -27,6 +27,13 @@ public class MedicineHeadService {
         }
     }
 
+    public void updateMedicineHead(MedicineHead medicineHead) {
+        MedicineHead medicineToUpdate = medicineHeadRepository.findByMedicineId(medicineHead.getMedicineId());
+        medicineToUpdate.setMedicineName(medicineHead.getMedicineName());
+        medicineToUpdate.setMedicineType(medicineHead.getMedicineType());
+        medicineHeadRepository.save(medicineToUpdate);
+    }
+
     public String buildMedicineId(MedicineHead medicineHead) {
         StringBuilder medicineId = new StringBuilder();
         medicineId.append(medicineHead.getMedicineName().toUpperCase() + "_" + medicineHead.getMedicineType().name());

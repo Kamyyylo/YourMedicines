@@ -24,14 +24,22 @@ public class ParagraphService {
         }
     }
 
+    public void updateParagraph(Paragraph paragraph) {
+        Paragraph paragraphToUpdate = paragraphRepository.findById(paragraph.getId().longValue());
+        paragraphToUpdate.setTitle(paragraph.getTitle());
+        paragraphToUpdate.setText(paragraph.getText());
+        paragraphToUpdate.setMedicineId(paragraph.getMedicineId());
+        paragraphRepository.save(paragraphToUpdate);
+    }
+
     public void deleteParagraphs(String medicineId) {
         List<Paragraph> paragraphs = paragraphRepository.findByMedicineId(medicineId);
-        if(paragraphs.size() != 0) {
+        if (paragraphs.size() != 0) {
             for (Paragraph p : paragraphs) {
                 paragraphRepository.delete(p);
             }
         } else {
-            throw new NoParagraphFoundException("Unable to delete paragraphs. Paragraphs with medicineId: "+medicineId+" not found");
+            throw new NoParagraphFoundException("Unable to delete paragraphs. Paragraphs with medicineId: " + medicineId + " not found");
         }
 
 
