@@ -29,6 +29,16 @@ public class MedicineTakingTargetService {
         }
     }
 
+    public void updateTakingTargetName(long id, String name) {
+        MedicineTakingTarget medicineTakingTargetToUpdate = medicineTakingTargetRepository.findById(id);
+        if(medicineTakingTargetToUpdate != null) {
+            medicineTakingTargetToUpdate.setTarget(name);
+            medicineTakingTargetRepository.save(medicineTakingTargetToUpdate);
+        } else {
+            throw new NoParagraphFoundException("No target found with id: "+ id);
+        }
+    }
+
     public void deleteMedicineTakingTargets(String medicineId) {
         List<MedicineTakingTarget> medicineTakingTargets = medicineTakingTargetRepository.findByMedicineId(medicineId);
         if (medicineTakingTargets.size() != 0) {

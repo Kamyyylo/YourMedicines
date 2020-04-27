@@ -20,7 +20,7 @@ public class MedicineHeadService {
 
     public void deleteMedicineHead(String medicineId) {
         MedicineHead medicineHead = medicineHeadRepository.findByMedicineId(medicineId);
-        if(medicineHead != null) {
+        if (medicineHead != null) {
             medicineHeadRepository.delete(medicineHead);
         } else {
             throw new NoLeafletFoundException("Unable to delete medicine head. Head with medicineId: " + medicineId + " not found");
@@ -29,9 +29,14 @@ public class MedicineHeadService {
 
     public void updateMedicineHead(MedicineHead medicineHead) {
         MedicineHead medicineToUpdate = medicineHeadRepository.findByMedicineId(medicineHead.getMedicineId());
-        medicineToUpdate.setMedicineName(medicineHead.getMedicineName());
-        medicineToUpdate.setMedicineType(medicineHead.getMedicineType());
-        medicineHeadRepository.save(medicineToUpdate);
+        if (medicineToUpdate != null) {
+            medicineToUpdate.setMedicineName(medicineHead.getMedicineName());
+            medicineToUpdate.setMedicineType(medicineHead.getMedicineType());
+            medicineHeadRepository.save(medicineToUpdate);
+        } else {
+            throw new NoLeafletFoundException("Medicine head with medicineId: "+medicineHead.getMedicineId()+" found");
+        }
+
     }
 
     public String buildMedicineId(MedicineHead medicineHead) {
@@ -41,7 +46,7 @@ public class MedicineHeadService {
             boolean finish = false;
             int counter = 0;
             while (finish != true) {
-                if(medicineHeadRepository.getByMedicineId(medicineId.toString() + "_" + counter) == null){
+                if (medicineHeadRepository.getByMedicineId(medicineId.toString() + "_" + counter) == null) {
                     finish = true;
                     medicineId.append("_" + counter++);
                 } else {

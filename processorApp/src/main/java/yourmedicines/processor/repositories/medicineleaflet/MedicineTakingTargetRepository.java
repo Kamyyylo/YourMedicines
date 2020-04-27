@@ -11,4 +11,6 @@ public interface MedicineTakingTargetRepository extends CrudRepository<MedicineT
 
     List<MedicineTakingTarget> findByMedicineId(String medicineId);
 
+    MedicineTakingTarget findById(long id);
+
 }

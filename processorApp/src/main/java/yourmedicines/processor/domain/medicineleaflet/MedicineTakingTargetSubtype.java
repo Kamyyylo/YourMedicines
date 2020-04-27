@@ -25,7 +25,6 @@ public class MedicineTakingTargetSubtype {
     @ManyToOne
     @JoinColumn(name = "target", nullable = false)
     @JsonIgnore
-    @NotNull(message = "Target column ignored but cannot be null")
     private MedicineTakingTarget target;
     @CreationTimestamp
     private Timestamp createdDate;

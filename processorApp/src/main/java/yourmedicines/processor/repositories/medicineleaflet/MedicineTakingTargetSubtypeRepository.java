@@ -11,4 +11,6 @@ import java.util.List;
 public interface MedicineTakingTargetSubtypeRepository extends CrudRepository<MedicineTakingTargetSubtype, Long> {
 
     List<MedicineTakingTargetSubtype> findByTarget(MedicineTakingTarget target);
+
+    MedicineTakingTargetSubtype findById(long id);
 }

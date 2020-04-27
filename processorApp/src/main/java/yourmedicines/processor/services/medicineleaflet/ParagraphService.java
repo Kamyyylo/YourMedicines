@@ -26,10 +26,15 @@ public class ParagraphService {
 
     public void updateParagraph(Paragraph paragraph) {
         Paragraph paragraphToUpdate = paragraphRepository.findById(paragraph.getId().longValue());
-        paragraphToUpdate.setTitle(paragraph.getTitle());
-        paragraphToUpdate.setText(paragraph.getText());
-        paragraphToUpdate.setMedicineId(paragraph.getMedicineId());
-        paragraphRepository.save(paragraphToUpdate);
+        if(paragraphToUpdate != null) {
+            paragraphToUpdate.setTitle(paragraph.getTitle());
+            paragraphToUpdate.setText(paragraph.getText());
+            paragraphToUpdate.setMedicineId(paragraph.getMedicineId());
+            paragraphRepository.save(paragraphToUpdate);
+        } else {
+         throw new NoParagraphFoundException("No paragraph with id: "+paragraph.getId()+ " found");
+        }
+
     }
 
     public void deleteParagraphs(String medicineId) {

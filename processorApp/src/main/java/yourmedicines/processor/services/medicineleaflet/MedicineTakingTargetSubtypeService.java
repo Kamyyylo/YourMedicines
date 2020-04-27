@@ -27,6 +27,16 @@ public class MedicineTakingTargetSubtypeService {
         } else {
            throw new NoParagraphFoundException("Unable to delete subtypes. subtypes for target with medicineId: "+target.getMedicineId()+" not found");
         }
+    }
 
+    public void updateSubtype(MedicineTakingTargetSubtype medicineTakingTargetSubtype) {
+        MedicineTakingTargetSubtype medicineTakingTargetSubtypeToUpdate = medicineTakingTargetSubtypeRepository.findById((long) medicineTakingTargetSubtype.getId());
+        if(medicineTakingTargetSubtypeToUpdate != null) {
+         medicineTakingTargetSubtypeToUpdate.setSubType(medicineTakingTargetSubtype.getSubType());
+         medicineTakingTargetSubtypeToUpdate.setDescription(medicineTakingTargetSubtype.getDescription());
+         medicineTakingTargetSubtypeRepository.save(medicineTakingTargetSubtypeToUpdate);
+        } else {
+            throw new NoParagraphFoundException("No subtype with id: "+medicineTakingTargetSubtype.getId()+" found");
+        }
     }
 }
